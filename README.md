@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  🌐 <b>Live Application:</b> <a href="https://airsense-hyderabad.streamlit.app/">Launch AirSense Dashboard</a>
+  🌐 <b>Live Application:</b> <a href="https://airsense-bfyexghtw6nqdixpttt7nt.streamlit.app/">Launch AirSense Dashboard</a>
 </p>
 
 ---
