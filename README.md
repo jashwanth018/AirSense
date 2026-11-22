@@ -1,176 +1,255 @@
-# AirSense – Hyderabad Air Quality Analysis and AQI Prediction
+# 🍃 AirSense – Hyderabad Air Quality Analysis & AQI Prediction
 
-A Python-based data analytics and machine learning project focused on analyzing daily historical air pollution patterns and predicting the Air Quality Index (AQI) for the city of **Hyderabad, India**.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.12%2B-blue?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Machine%20Learning-Random%20Forest-success?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Framework-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" />
+  <img src="https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge" />
+</p>
+
+<p align="center">
+  <b>Understand the air. Discover the patterns. Predict tomorrow.</b>
+</p>
+
+<p align="center">
+  An interactive data analytics and machine learning application that explores Hyderabad's historical air pollution patterns and predicts next-day Air Quality Index (AQI) using Random Forest Regression.
+</p>
+
+<p align="center">
+  🌐 <b>Live Application:</b> <a href="https://airsense-hyderabad.streamlit.app/">Launch AirSense Dashboard</a>
+</p>
 
 ---
 
-## 📌 Project Overview
+## 🌍 About the Project
 
-Air pollution is a pressing environmental and public health issue. **AirSense** analyzes daily ambient air quality records in Hyderabad from 2015 to 2020 and utilizes a **Random Forest Regression** model to forecast AQI levels.
+**AirSense** is a data analytics and machine learning project developed as part of the Community Engagement Program (CEP) at **Vardhaman College of Engineering**.
 
-The project is structured to guide learners and practitioners through the complete end-to-end data science lifecycle:
-1. **Dataset Inspection & Ingestion**: Loading and understanding environmental monitoring data.
-2. **Data Cleaning & Imputation**: Handling missing pollutant values systematically without silent zero-fills.
-3. **Exploratory Data Analysis (EDA)**: Investigating temporal trends, seasonal patterns, and major pollutants like $\text{PM}_{2.5}$ and $\text{PM}_{10}$.
-4. **Machine Learning Model**: Training a leakage-free chronological Random Forest Regressor for next-day AQI prediction.
-5. **Interactive Dashboard**: Presenting real-time insights and predictions via a modern Streamlit web application.
+The project analyses historical air quality monitoring records for Hyderabad, Telangana, India. It explores pollutant behaviour, identifies air quality trends and builds a machine learning model to predict the following day's AQI.
 
----
+The application brings together data preprocessing, exploratory data analysis, machine learning and an interactive Streamlit dashboard.
+
+## ✨ Key Features
+
+- 📊 **Interactive Dashboard** – Explore Hyderabad's historical air quality data.
+- 🌫️ **Pollutant Analysis** – Study PM2.5, PM10, CO, NO₂, SO₂ and other pollutants.
+- 📈 **Trend Visualization** – Understand daily and monthly AQI variations.
+- 🔥 **Correlation Analysis** – Examine relationships between pollutants and AQI.
+- 🤖 **Machine Learning Prediction** – Predict next-day AQI using Random Forest Regression.
+- 🩺 **AQI Category & Advisory** – Display the predicted category and corresponding health advisory.
+- 📅 **Date Range Filtering** – Analyse selected historical periods.
+
+## 📂 Dataset Overview
+
+| Property | Details |
+|---|---|
+| Dataset | CPCB city_day.csv |
+| Geographic scope | Hyderabad, Telangana, India |
+| Original dataset | 29,531 records |
+| Cities in original dataset | 26 |
+| Hyderabad records | 2,006 |
+| Monitoring period | January 2015 – July 2020 |
+| Valid AQI observations | 1,880 |
+| Missing AQI observations | 126 |
+
+**Data handling:** Missing pollutant readings are handled using limited past-only forward filling. Missing AQI target values are preserved and excluded from model training. Extreme observations are not automatically deleted.
+
+## 🧠 Machine Learning Approach
+
+AirSense uses **Random Forest Regression** to estimate the next day's AQI.
+
+### Model workflow
+
+1. Sort Hyderabad observations chronologically.
+2. Generate previous-day pollutant and AQI lag features.
+3. Extract calendar features such as month, day and day of the week.
+4. Split observations chronologically into training and testing sets.
+5. Handle missing predictor values using a median imputer fitted on training data.
+6. Train and evaluate the Random Forest Regression model.
+7. Generate next-day AQI predictions.
+
+### Model configuration
+
+| Parameter | Value |
+|---|---|
+| Algorithm | Random Forest Regressor |
+| Number of estimators | 100 |
+| Maximum depth | 10 |
+| Random state | 42 |
+| Total input features | 17 |
+| Training observations | 1,504 |
+| Testing observations | 376 |
+| Train-test split | 80:20 |
+
+### 📊 Model Performance
+
+| Evaluation Metric | Test Result |
+|---|---:|
+| MAE | 11.26 |
+| RMSE | 13.80 |
+| R² Score | 0.8494 |
+
+**Interpretation:** The model achieved an R² score of approximately 0.85 on the chronological test set.
+
+## 📉 Exploratory Data Analysis
+
+The project includes visualizations for:
+
+- Daily AQI trends
+- Monthly average AQI
+- PM2.5 concentration trends
+- PM10 concentration trends
+- PM2.5 versus PM10 comparison
+- Average pollutant levels
+- AQI category distribution
+- Pollutant correlation heatmap
 
 ## 🛠️ Technology Stack
 
-- **Programming Language:** Python 3.10+
-- **Data Manipulation & Computation:** NumPy, Pandas
-- **Visualization:** Matplotlib, Seaborn
-- **Machine Learning:** Scikit-learn (Random Forest Regression)
-- **Interactive Prototyping:** Jupyter Notebook / JupyterLab
-- **Web Dashboard:** Streamlit
+| Technology | Purpose |
+|---|---|
+| Python | Core programming |
+| Pandas | Data manipulation |
+| NumPy | Numerical operations |
+| Matplotlib | Data visualization |
+| Scikit-learn | Machine learning |
+| Joblib | Model serialization |
+| Jupyter Notebook | Data exploration and experimentation |
+| Streamlit | Interactive web application |
 
----
-
-## 📁 Project Folder Structure
+## 🏗️ Project Structure
 
 ```text
 AirSense/
 │
 ├── dataset/
-│   └── city_day.csv          # Raw daily air quality dataset (CPCB India)
+│   ├── city_day.csv
+│   ├── hyderabad_aqi_raw.csv
+│   └── hyderabad_aqi_cleaned.csv
 │
 ├── notebooks/
-│   └── analysis.ipynb        # Step-by-step EDA, data cleaning & model development
+│   └── analysis.ipynb
 │
 ├── src/
-│   └── prediction.py         # Modular Python scripts for ML preprocessing & inference
+│   ├── __init__.py
+│   ├── preprocessing.py
+│   ├── train_model.py
+│   └── prediction.py
 │
-├── visualizations/           # Exported plots and charts (EDA & evaluation)
+├── visualizations/
+│   ├── aqi_trend.png
+│   ├── monthly_aqi_trend.png
+│   ├── pm25_trend.png
+│   ├── pm10_trend.png
+│   ├── pm25_vs_pm10.png
+│   ├── pollutant_averages.png
+│   ├── aqi_category_distribution.png
+│   ├── pollutant_correlation_heatmap.png
+│   ├── actual_vs_predicted_line.png
+│   ├── actual_vs_predicted_scatter.png
+│   └── feature_importance.png
 │
-├── models/                   # Serialized trained model files (e.g. .pkl / .joblib)
+├── models/
+│   └── random_forest_aqi.pkl
 │
-├── app.py                    # Streamlit web application dashboard
-├── requirements.txt          # Project dependencies
-└── README.md                 # Project documentation
+├── app.py
+├── requirements.txt
+├── README.md
+└── .gitignore
 ```
 
-### Purpose of Each Directory and File
+## 🚀 Run AirSense Locally
 
-- `dataset/`: Contains the raw CSV data (`city_day.csv`) containing historical daily air quality observations.
-- `notebooks/`: Contains `analysis.ipynb` for interactive data exploration, cleaning, visualization, and experimental model validation.
-- `src/`: Houses reusable, modular Python source code including data preparation and prediction logic (`prediction.py`).
-- `visualizations/`: Dedicated folder to store exported high-resolution charts, correlation heatmaps, and trend graphs.
-- `models/`: Stores exported machine learning models and scaler/preprocessor artifacts for deployment in the web app.
-- `app.py`: The entry point for the Streamlit dashboard providing a beginner-friendly UI for exploring Hyderabad AQI data and predicting future air quality.
-- `requirements.txt`: Pinpoints required libraries and their compatible versions.
-- `README.md`: Provides complete project documentation and usage instructions.
+### 1. Clone the repository
 
----
-
-## 📊 Dataset Information
-
-- **Source Dataset:** `city_day.csv` (CPCB National Ambient Air Quality Monitoring)
-- **Target City:** Hyderabad
-- **Total Records for Hyderabad:** 2,006 daily records
-- **Temporal Coverage:** January 4, 2015 to July 1, 2020 (~5.5 years of continuous daily data)
-- **Key Features:**
-  - `PM2.5`, `PM10` (Particulate Matter in $\mu\text{g/m}^3$)
-  - `NO`, `NO2`, `NOx`, `NH3` (Nitrogen compounds & Ammonia)
-  - `CO` (Carbon Monoxide in $\text{mg/m}^3$)
-  - `SO2` (Sulfur Dioxide in $\mu\text{g/m}^3$)
-  - `O3` (Ozone in $\mu\text{g/m}^3$)
-  - `Benzene`, `Toluene`, `Xylene` (Volatile Organic Compounds)
-  - `AQI` (Air Quality Index - Continuous Target Variable)
-  - `AQI_Bucket` (Air Quality Category: Good, Satisfactory, Moderate, Poor, Very Poor, Severe)
-
----
-
-## 🚀 Getting Started
-
-### 1. Prerequisites
-Ensure Python is installed on your system. Verify with:
 ```bash
-python --version
+git clone https://github.com/jashwanth018/AirSense.git
 ```
 
-### 2. Install Dependencies
-Navigate into the `AirSense` directory and install the required packages:
+### 2. Navigate to the project directory
+
 ```bash
 cd AirSense
+```
+
+### 3. Create a virtual environment
+
+```bash
+python -m venv venv
+```
+
+### 4. Activate the environment (Windows)
+
+```bash
+venv\Scripts\activate
+```
+
+### 5. Install dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-### 3. Launch the Jupyter Notebook
-To explore the dataset and run the analysis step by step:
-```bash
-jupyter lab notebooks/analysis.ipynb
-# or
-jupyter notebook notebooks/analysis.ipynb
-```
-
-### 4. Run the Streamlit Dashboard
-```bash
-streamlit run app.py
-```
-
----
-
-## 📈 Project Status & Milestones
-
-- [x] **Phase 1: Project Setup & Dataset Inspection**
-  - Directory structure initialized.
-  - Original dataset preserved; `city_day.csv` safely staged in `AirSense/dataset/`.
-  - Initial dataset inspection conducted; 2,006 Hyderabad records identified.
-- [x] **Phase 2: Dataset Understanding & Quality Analysis**
-  - Date conversion, chronological sorting, and continuity verification (2,006 consecutive daily records).
-  - Feature suitability and extreme value review.
-  - Intermediate raw subset saved to `dataset/hyderabad_aqi_raw.csv`.
-- [x] **Phase 3: Data Cleaning & Preprocessing**
-  - Modular cleaning functions implemented in `src/preprocessing.py`.
-  - Causality-preserving forward filling (`limit=3`) applied without zero-filling or backward leakage.
-  - AQI target preserved as `NaN`; IQR outlier audit completed without artificial truncation.
-  - Cleaned dataset saved to `dataset/hyderabad_aqi_cleaned.csv`.
-- [x] **Phase 4: Exploratory Data Analysis (EDA) & Visualizations**
-  - Statistical analysis of AQI, PM2.5, PM10, yearly and seasonal monthly breakdowns.
-  - Generated and saved 8 high-resolution Matplotlib graphs in `visualizations/`.
-  - Correlation analysis establishing PM2.5 ($r=0.80$) and PM10 ($r=0.66$) as primary AQI drivers.
-  - Pure Matplotlib heatmap without Seaborn dependency.
-- [x] **Phase 5: Chronological Random Forest Model Training & Evaluation**
-  - Engineered 13 previous-day lag-1 features and 4 calendar temporal features.
-  - Strict chronological train-test split (80% train: 1,504 days; 20% test: 376 days).
-  - Built Scikit-Learn Pipeline combining training-median imputer and Random Forest Regressor.
-  - Achieved strong test performance: $\text{MAE} = 11.26$, $\text{RMSE} = 13.80$, $R^2 = 0.8494$ (substantially outperforming baseline $\text{MAE} = 45.80$).
-  - Identified $\text{PM}_{2.5}(t-1)$ (55.9%) and $\text{AQI}(t-1)$ (24.8%) as primary predictive features.
-  - Exported trained pipeline to `models/random_forest_aqi.pkl`.
-  - Created reusable modules `src/train_model.py` and `src/prediction.py`.
-  - Generated Matplotlib evaluation graphs in `visualizations/`.
-- [x] **Phase 6: Streamlit Interactive Web Application**
-  - Built a complete, professional 4-page Streamlit dashboard in `app.py`.
-  - **Overview page:** 5 live KPI cards (monitoring days, valid AQI days, mean/max/min AQI, top category), daily AQI line chart, AQI category bar chart, and 3 data-driven insights.
-  - **Air Quality Analysis page:** Interactive date-range filter with 6 live Matplotlib charts — daily AQI trend, monthly average AQI, PM2.5 trend, PM10 trend, mean pollutant bar chart, and correlation heatmap (pure `imshow`, no Seaborn).
-  - **AQI Prediction page:** Loads `models/random_forest_aqi.pkl`, calls `predict_next_day_aqi()` from `src/prediction.py`, displays colour-coded AQI badge, health advisory, previous-day lag inputs, model performance metrics, AQI reference table, and mandatory academic disclaimer.
-  - **About AirSense page:** Project overview, objectives, technology stack table, dataset info, Random Forest explanation, train/test split, model metrics, and 6-phase workflow.
-  - Installed `streamlit 1.67.0`; all imports, dataset loading, model loading, and prediction verified error-free.
-  - `requirements.txt` updated: removed `seaborn`, added `joblib`.
-
----
-
-## 🌐 Running the Dashboard
-
-### Launch the Streamlit Web Application
+### 6. Launch the application
 
 ```bash
-cd AirSense
 python -m streamlit run app.py
 ```
 
-The app will open automatically at **http://localhost:8501** in your browser.
+Open your browser at:
 
-### Dashboard Sections
+```text
+http://localhost:8501
+```
 
-| Section | Description |
-|---------|-------------|
-| 🏙️ **Overview** | Key statistics and AQI trend at a glance |
-| 🔬 **Air Quality Analysis** | Date-filtered trend charts and pollutant breakdowns |
-| 🔮 **AQI Prediction** | Next-day AQI forecast using the trained Random Forest model |
-| ℹ️ **About AirSense** | Project info, methodology, and model performance |
+## 🔮 Sample Prediction
 
-> **Note:** The prediction is based on historical CPCB data ending **1 July 2020**.
-> It is an academic retrospective demonstration and is **not** a live real-time forecast.
+The model uses the latest historical observation available in the dataset to demonstrate next-day prediction.
+
+| Property | Result |
+|---|---|
+| Latest observation | 01 July 2020 |
+| Prediction date | 02 July 2020 |
+| Predicted AQI | 67.59 |
+| Predicted category | Satisfactory |
+
+## ⚠️ Important Disclaimer
+
+This project uses historical air quality records ending on **1 July 2020**.
+
+The displayed AQI prediction is a retrospective academic demonstration. It is **not a live AQI measurement or a real-time forecast for 2026**.
+
+The model's performance is based on the available historical test data and should not be interpreted as a guarantee of future prediction accuracy.
+
+## 🎯 Project Objectives
+
+- Analyse historical urban air pollution patterns.
+- Understand the behaviour of major air pollutants.
+- Apply machine learning to environmental data.
+- Develop a predictive AQI model.
+- Present analytical findings through an interactive dashboard.
+
+## 👨‍💻 Developed As
+
+**Community Engagement Program (CEP)**  
+Department of Electronics and Communication Engineering  
+**Vardhaman College of Engineering**  
+Hyderabad, Telangana, India.
+
+## 🤝 Contributions
+
+Suggestions and improvements are welcome. Feel free to explore the repository and share feedback.
+
+## ⭐ Support
+
+If you find this project interesting, consider giving the repository a ⭐ on GitHub!
+
+---
+
+<p align="center">
+  <b>🍃 AirSense – Turning Historical Air Quality Data into Meaningful Insights.</b>
+</p>
+
+<p align="center">
+  Built with Python, Machine Learning and Streamlit.
+</p>
