@@ -231,7 +231,7 @@ The model's performance is based on the available historical test data and shoul
 
 ## 👨‍💻 Developed As
 
-**Community Engagement Program (CEP)**  
+**Course End Project (CEP)-BIG DATA TOOLS**  
 Department of Electronics and Communication Engineering  
 **Vardhaman College of Engineering**  
 Hyderabad, Telangana, India.
